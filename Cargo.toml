@@ -1,0 +1,6 @@
+[package]
+name = "getspot"
+version = "0.1.0"
+authors = ["XavierT <sseingalt@gmail.com>"]
+
+[dependencies]
