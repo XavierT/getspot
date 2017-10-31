@@ -7,13 +7,16 @@ extern crate clap;
 
 use clap::{Arg, App};
 use log::LogLevel;
+use std::env::consts::OS;
 
 fn main() {
 
     let matches = App::new("getspot")
         .version("0.1")
         .author("Xavier T. <sseingalt@gmail.com>")
-        .about("Copy pictures from Spotlight directory")
+        .about(
+            "Copy pictures from Spotlight directory. Only works on Windows 10",
+        )
         .arg(
             Arg::with_name("target")
                 .short("t")
@@ -50,8 +53,14 @@ fn main() {
 
     simple_logger::init_with_level(level).unwrap();
 
-    info!("This is an example message.");
-    warn!("This is an example message.");
-    error!("This is an example message.");
+    // TODO it would be better to detect wich
+    // Windows version is running..
+    if OS == "windows" {
+        debug!("yeah windows");
+    } else {
+        error!("getspot only runs on Windows.");
+        std::process::exit(0);
+    }
+
 
 }
