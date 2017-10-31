@@ -6,9 +6,9 @@ extern crate clap;
 
 
 use clap::{Arg, App};
+use log::LogLevel;
 
 fn main() {
-    simple_logger::init().unwrap();
 
   let matches = App::new("getspot")
                           .version("0.1")
@@ -30,10 +30,7 @@ fn main() {
     let config = matches.value_of("target").unwrap_or("default.conf");
     println!("Value for config: {}", config);
 
-
-    info!("This is an example message.");
-
-}
+    let level;
 
 // pub enum LogLevel {
 //     Error,
@@ -41,4 +38,20 @@ fn main() {
 //     Info,
 //     Debug,
 //     Trace,
-// }
+// }   
+
+    match matches.occurrences_of("v") {
+        0 => { level = LogLevel::Error},
+        1 => { level = LogLevel::Warn},
+        2 => { level = LogLevel::Info},
+        3 | _ => { level = LogLevel::Trace},
+    }
+     
+    simple_logger::init_with_level(level).unwrap();
+
+    info!("This is an example message.");
+    warn!("This is an example message.");
+    error!("This is an example message.");
+
+}
+
