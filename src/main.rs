@@ -7,9 +7,11 @@ extern crate clap;
 pub mod file;
 pub mod find;
 
+use std::env::consts::OS;
+use std::path::{Path,PathBuf};
+
 use clap::{Arg, App};
 use log::LogLevel;
-use std::env::consts::OS;
 
 fn main() {
 
@@ -65,5 +67,11 @@ fn main() {
         std::process::exit(0);
     }
 
+    let mut list_of_files:Vec<PathBuf> = Vec::new();
 
+    find::find_in_directory(Path::new("."), &mut list_of_files).unwrap();
+
+    for p in list_of_files{
+        println!("{}",p.display());
+    }
 }
