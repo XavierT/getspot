@@ -12,7 +12,7 @@ use std::env::consts::OS;
 
 fn main() {
 
-    // Command line paramenters management
+    // Command line parameters management
     let matches = App::new("getspot")
         .version("0.1")
         .author("Xavier T. <sseingalt@gmail.com>")
