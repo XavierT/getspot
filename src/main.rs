@@ -5,6 +5,7 @@ extern crate simple_logger;
 extern crate clap;
 
 pub mod file;
+pub mod find;
 
 use clap::{Arg, App};
 use log::LogLevel;
