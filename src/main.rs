@@ -4,6 +4,7 @@ extern crate log;
 extern crate simple_logger;
 extern crate clap;
 
+pub mod file;
 
 use clap::{Arg, App};
 use log::LogLevel;
@@ -11,6 +12,7 @@ use std::env::consts::OS;
 
 fn main() {
 
+    // Command line paramenters management
     let matches = App::new("getspot")
         .version("0.1")
         .author("Xavier T. <sseingalt@gmail.com>")
@@ -42,19 +44,19 @@ fn main() {
     //     Trace,
     // }
 
-    let level;
+    // logging configuration
+    let log_level;
 
     match matches.occurrences_of("v") {
-        0 => level = LogLevel::Error,
-        1 => level = LogLevel::Warn,
-        2 => level = LogLevel::Info,
-        3 | _ => level = LogLevel::Trace,
+        0 => log_level = LogLevel::Error,
+        1 => log_level = LogLevel::Warn,
+        2 => log_level = LogLevel::Info,
+        3 | _ => log_level = LogLevel::Trace,
     }
 
-    simple_logger::init_with_level(level).unwrap();
+    simple_logger::init_with_level(log_level).unwrap();
 
-    // TODO it would be better to detect wich
-    // Windows version is running..
+    // TODO it would be better to detect wich Windows version is running..
     if OS == "windows" {
         debug!("yeah windows");
     } else {
