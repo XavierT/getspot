@@ -21,6 +21,12 @@ impl PictureFile {
         }
     }
 
+    /// Add source path to picture
+    pub fn with_path( mut self, p: PathBuf) -> PictureFile{
+        self.path = Some(p);
+        self
+    }
+
     /// Add dimensions to picture file
     pub fn with_dimensions(mut self, w:u32, h:u32) ->  PictureFile{
         self.width = Some(w);
@@ -28,7 +34,7 @@ impl PictureFile {
         self
     }
 
-    /// Add title to picture file
+    /// Add title to picture
     pub fn with_title( mut self, t: &str) -> PictureFile{
         self.title = Some(String::from(t));
         self
