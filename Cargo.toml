@@ -7,3 +7,6 @@ authors = ["XavierT <sseingalt@gmail.com>"]
 simple_logger = "0.4"
 log = "0.3"
 clap = "2.27"
+jpeg-decoder="0.1"
+# //extern crate exif
+kamadak-exif = "0.3"
