@@ -8,12 +8,22 @@ pub mod file;
 pub mod find;
 
 use std::env::consts::OS;
-use std::path::{Path,PathBuf};
+use std::env::home_dir;
+use std::path::{Path, PathBuf};
 
 use clap::{Arg, App};
 use log::LogLevel;
 
 fn main() {
+
+    let spotify_picture_dir = home_dir()
+        .unwrap()
+        .join("AppData")
+        .join("Local")
+        .join("Packages")
+        .join("Microsoft.Windows.ContentDeliveryManager_cw5n1h2txyewy")
+        .join("LocalState")
+        .join("Assets");
 
     // Command line parameters management
     let matches = App::new("getspot")
@@ -67,11 +77,11 @@ fn main() {
         std::process::exit(0);
     }
 
-    let mut list_of_files:Vec<PathBuf> = Vec::new();
+    let mut list_of_files: Vec<PathBuf> = Vec::new();
 
-    find::find_in_directory(Path::new("."), &mut list_of_files).unwrap();
+    find::find_in_directory(&spotify_picture_dir,&mut list_of_files).unwrap();
 
-    for p in list_of_files{
-        println!("{}",p.display());
+    for p in list_of_files {
+        println!("{}", p.display());
     }
 }

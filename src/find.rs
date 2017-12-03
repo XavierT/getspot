@@ -1,6 +1,6 @@
 
-use std::io::{self};
-use std::fs::{self};
+use std::io;
+use std::fs;
 use std::path::{Path, PathBuf};
 use std::vec::Vec;
 

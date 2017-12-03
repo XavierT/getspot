@@ -1,5 +1,5 @@
 
-use std::path::{PathBuf};
+use std::path::PathBuf;
 use std::string::String;
 
 #[derive(Debug)]
