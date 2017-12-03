@@ -3,6 +3,7 @@
 extern crate log;
 extern crate simple_logger;
 extern crate clap;
+extern crate jpeg_decoder;
 
 pub mod file;
 pub mod find;
@@ -16,14 +17,6 @@ use log::LogLevel;
 
 fn main() {
 
-    let spotify_picture_dir = home_dir()
-        .unwrap()
-        .join("AppData")
-        .join("Local")
-        .join("Packages")
-        .join("Microsoft.Windows.ContentDeliveryManager_cw5n1h2txyewy")
-        .join("LocalState")
-        .join("Assets");
 
     // Command line parameters management
     let matches = App::new("getspot")
@@ -76,6 +69,15 @@ fn main() {
         error!("getspot only runs on Windows.");
         std::process::exit(0);
     }
+
+    let spotify_picture_dir = home_dir()
+        .unwrap()
+        .join("AppData")
+        .join("Local")
+        .join("Packages")
+        .join("Microsoft.Windows.ContentDeliveryManager_cw5n1h2txyewy")
+        .join("LocalState")
+        .join("Assets");
 
     let mut list_of_files: Vec<PathBuf> = Vec::new();
 
