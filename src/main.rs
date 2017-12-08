@@ -10,10 +10,16 @@ pub mod find;
 
 use std::env::consts::OS;
 use std::env::home_dir;
-use std::path::{Path, PathBuf};
+use std::path::PathBuf;
+use std::fs::File;
+use std::io::BufReader;
+
 
 use clap::{Arg, App};
 use log::LogLevel;
+use jpeg_decoder::Decoder;
+
+use file::PictureFile;
 
 fn main() {
 
@@ -79,11 +85,58 @@ fn main() {
         .join("LocalState")
         .join("Assets");
 
+    let default_output_dir = home_dir().unwrap().join("Pictures").join("Spotify");
+
     let mut list_of_files: Vec<PathBuf> = Vec::new();
+    let mut list_of_pic: Vec<PictureFile> = Vec::new();
 
-    find::find_in_directory(&spotify_picture_dir,&mut list_of_files).unwrap();
+    find::find_in_directory(&spotify_picture_dir, &mut list_of_files).unwrap();
 
+    // Need to create a method with what is below
     for p in list_of_files {
-        println!("{}", p.display());
+
+        let file = File::open(&p).expect("failed to open file");
+        let mut decoder = Decoder::new(BufReader::new(file));
+
+        if decoder.read_info().is_ok() {
+            // This is a valid jpeg file
+            if let Some(metadata) = decoder.info() {
+                let pic_file = PictureFile::new().with_path(p).with_dimensions(
+                    metadata.width,
+                    metadata.height,
+                );
+
+                list_of_pic.push(pic_file);
+            }
+
+        }
+
     }
+
+    for pic in list_of_pic {
+        // println!(
+        //     "dimensions : {}, name : {} ",
+        //     pic.get_dimension_string(),
+        //     pic.get_name().unwrap_or("None".to_string())
+        // );
+
+
+        let pic1 = pic.clone();
+        let pic2 = pic.clone();
+        let pic3 = pic.clone();
+
+        // TODO there is a better solution here than to clone the pic
+        let source_pathbuf = pic1.path.unwrap();
+        let destination = default_output_dir.join(pic2.get_dimension_string());
+        let name = pic3.get_name().unwrap();
+
+        find::copy_to_dir(
+            source_pathbuf.as_path(),
+            destination.as_path(),
+            name.as_ref(),
+        );
+
+    }
+
+
 }

@@ -4,7 +4,6 @@ use std::fs;
 use std::path::{Path, PathBuf};
 use std::vec::Vec;
 
-use jpeg_decoder;
 
 /// Find all files recursively in a directory
 /// return a vec of Path
@@ -32,7 +31,9 @@ pub fn copy_to_dir(source_file: &Path, target_dir: &Path, target_name: &str) {
         if target_dir.is_dir() {
             fs::copy(source_file, target_dir.join(target_name)).expect("source file not written");
         } else {
-            error!(" target directory {} does not exist", target_dir.display());
+            // !("Creating directory {:?}", target_dir);
+            fs::create_dir_all(target_dir).expect("dir not created");
+            fs::copy(source_file, target_dir.join(target_name)).expect("source file not written");
         }
     } else {
         error!(" source file {} does not exist", source_file.display());

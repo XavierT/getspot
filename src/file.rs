@@ -2,12 +2,12 @@
 use std::path::PathBuf;
 use std::string::String;
 
-#[derive(Debug)]
+#[derive(Debug, Clone)]
 pub struct PictureFile {
-    path: Option<PathBuf>,
+    pub path: Option<PathBuf>,
     title: Option<String>,
-    width: Option<u32>,
-    height: Option<u32>,
+    width: Option<u16>,
+    height: Option<u16>,
 }
 
 impl PictureFile {
@@ -28,7 +28,7 @@ impl PictureFile {
     }
 
     /// Add dimensions to picture file
-    pub fn with_dimensions(mut self, w: u32, h: u32) -> PictureFile {
+    pub fn with_dimensions(mut self, w: u16, h: u16) -> PictureFile {
         self.width = Some(w);
         self.height = Some(h);
         self
@@ -52,6 +52,23 @@ impl PictureFile {
             _ => String::from("default"),
         }
 
+    }
+
+    /// Return a truncated name from the initial path
+    ///
+    /// Truncate the name to 10 characters
+    /// Append ".jpg" at the end
+    pub fn get_name(&self) -> Option<String> {
+        if let Some(ref p) = self.path {
+            let name = p.file_name().unwrap().to_os_string().into_string();
+            if name.is_ok() {
+                let mut name_string = name.ok().unwrap();
+                name_string.truncate(10);
+                name_string.push_str(".jpg");
+                return Some(name_string);
+            }
+        }
+        None
     }
 }
 
