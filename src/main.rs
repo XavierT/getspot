@@ -76,7 +76,7 @@ fn main() {
         std::process::exit(0);
     }
 
-    let spotify_picture_dir = home_dir()
+    let spotlight_picture_dir = home_dir()
         .unwrap()
         .join("AppData")
         .join("Local")
@@ -85,12 +85,12 @@ fn main() {
         .join("LocalState")
         .join("Assets");
 
-    let default_output_dir = home_dir().unwrap().join("Pictures").join("Spotify");
+    let default_output_dir = home_dir().unwrap().join("Pictures").join("Spotlight");
 
     let mut list_of_files: Vec<PathBuf> = Vec::new();
     let mut list_of_pic: Vec<PictureFile> = Vec::new();
 
-    find::find_in_directory(&spotify_picture_dir, &mut list_of_files).unwrap();
+    find::find_in_directory(&spotlight_picture_dir, &mut list_of_files).unwrap();
 
     // Need to create a method with what is below
     for p in list_of_files {
