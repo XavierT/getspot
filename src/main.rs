@@ -94,6 +94,7 @@ fn main() {
 
     // Need to create a method with what is below
     for p in list_of_files {
+        debug!("{:?}",p);
 
         let file = File::open(&p).expect("failed to open file");
         let mut decoder = Decoder::new(BufReader::new(file));
