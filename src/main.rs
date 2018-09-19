@@ -18,7 +18,6 @@ use std::io::BufReader;
 use clap::{Arg, App};
 use log::LogLevel;
 use jpeg_decoder::Decoder;
-use dirs::home_dir;
 
 use file::PictureFile;
 
