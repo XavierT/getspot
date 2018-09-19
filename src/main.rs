@@ -4,12 +4,12 @@ extern crate log;
 extern crate simple_logger;
 extern crate clap;
 extern crate jpeg_decoder;
+extern crate dirs;
 
 pub mod file;
 pub mod find;
 
 use std::env::consts::OS;
-use std::env::home_dir;
 use std::path::PathBuf;
 use std::fs::File;
 use std::io::BufReader;
@@ -18,6 +18,7 @@ use std::io::BufReader;
 use clap::{Arg, App};
 use log::LogLevel;
 use jpeg_decoder::Decoder;
+use dirs::home_dir;
 
 use file::PictureFile;
 
@@ -76,7 +77,7 @@ fn main() {
         std::process::exit(0);
     }
 
-    let spotlight_picture_dir = home_dir()
+    let spotlight_picture_dir = dirs::home_dir()
         .unwrap()
         .join("AppData")
         .join("Local")
@@ -85,7 +86,7 @@ fn main() {
         .join("LocalState")
         .join("Assets");
 
-    let default_output_dir = home_dir().unwrap().join("Pictures").join("Spotlight");
+    let default_output_dir = dirs::home_dir().unwrap().join("Pictures").join("Spotlight");
 
     let mut list_of_files: Vec<PathBuf> = Vec::new();
     let mut list_of_pic: Vec<PictureFile> = Vec::new();
