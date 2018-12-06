@@ -2,6 +2,7 @@
 name = "getspot"
 version = "0.1.0"
 authors = ["XavierT <sseingalt@gmail.com>"]
+edition = "2018"
 
 [dependencies]
 simple_logger = "0.4"
