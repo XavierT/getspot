@@ -1,10 +1,6 @@
 
 #[macro_use]
 extern crate log;
-extern crate simple_logger;
-extern crate clap;
-extern crate jpeg_decoder;
-extern crate dirs;
 
 pub mod file;
 pub mod find;
@@ -19,7 +15,7 @@ use clap::{Arg, App};
 use log::LogLevel;
 use jpeg_decoder::Decoder;
 
-use file::PictureFile;
+use crate::file::PictureFile;
 
 fn main() {
 

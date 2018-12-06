@@ -75,7 +75,7 @@ impl PictureFile {
 #[cfg(test)]
 mod tests {
 
-    use file::PictureFile;
+    use crate::file::PictureFile;
 
     #[test]
     fn test_dimension_string() {
